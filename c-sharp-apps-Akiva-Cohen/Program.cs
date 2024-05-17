@@ -1,2 +1,10 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using c_sharp_apps_Akiva_Cohen;
+using c_sharp_apps_Akiva_Cohen.common;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        ProcessManager.RunMainProcess();
+    }
+}
