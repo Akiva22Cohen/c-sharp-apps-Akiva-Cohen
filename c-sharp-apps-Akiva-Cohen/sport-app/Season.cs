@@ -17,10 +17,18 @@ namespace c_sharp_apps_Akiva_Cohen.sport_app
         private int numOfGroups;
         private bool active;
 
+        public Season(int year, string type, string leagueName, int roundAmount, Round nextRound, Team[] teams, int numOfGroups, bool active)
+        {
+            this.year = year;
+            this.type = type;
+            this.leagueName = leagueName;
+            this.teams = teams;
+        }
+
         public void DisplayTable()
         {
             for (int i = 0; i < numOfGroups; i++)
-                Console.WriteLine($"{i} - {teams[i].GetName()} - {teams[i].GetPoints()}");
+                Console.WriteLine($"{i + 1} - {teams[i].GetName()} - {teams[i].GetPoints()}");
         }
     }
 }

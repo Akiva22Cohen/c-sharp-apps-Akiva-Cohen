@@ -21,11 +21,10 @@ namespace c_sharp_apps_Akiva_Cohen.sport_app
         private int goalsAgainst;
         private int goalsDifferential;
 
-        Team(string name, string city, string currentLeage)
+        public Team(string name, string city)
         {
             this.name = name;
             this.city = city;
-            this.currentLeague = currentLeage;
         }
 
         public string GetName() { return name; }

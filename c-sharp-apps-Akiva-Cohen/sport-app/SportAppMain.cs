@@ -10,7 +10,7 @@ namespace c_sharp_apps_Akiva_Cohen.sport_app
     {
         public static void MainEntry()
         {
-            Console.WriteLine("SportApp");
+            TestSportApp.Test1();
         }
     }
 }
