@@ -12,8 +12,8 @@ namespace c_sharp_apps_Akiva_Cohen.sport_app
         private string type;
         private string leagueName;
         private int roundAmount;
-        Round nextRound;
-        Team[] teams;
+        private Round nextRound;
+        private Team[] teams;
         private int numOfGroups;
         private bool active;
 
