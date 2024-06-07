@@ -17,6 +17,10 @@ namespace c_sharp_apps_Akiva_Cohen.sport_app
         private int numOfGroups;
         private bool active;
 
-
+        public void DisplayTable()
+        {
+            for (int i = 0; i < numOfGroups; i++)
+                Console.WriteLine($"{i} - {teams[i].GetName()} - {teams[i].GetPoints()}");
+        }
     }
 }

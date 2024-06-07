@@ -27,5 +27,23 @@ namespace c_sharp_apps_Akiva_Cohen.sport_app
             this.city = city;
             this.currentLeague = currentLeage;
         }
+
+        public string GetName() { return name; }
+        public string GetCity() { return city; }
+        public string GetCurrentLeague() { return currentLeague; }
+        public int GetTotalGames() { return totalGames; }
+        public int GetGamesPlayed() { return gamesPlayed; }
+        public int GetVictories() { return victories; }
+        public int GetLosses() { return losses; }
+        public int GetDraw() { return draw; }
+        public int GetPoints() { return points; }
+        public int GetGoalsFor() { return goalsFor; }
+        public int GetGoalsAgainst() { return goalsAgainst; }
+        public int GetGoalsDifferential() { return goalsDifferential; }
+
+        public void SetName(string name) { this.name = name; }
+        public void SetCity(string city) { this.city = city; }
+        public void SetCurrentLeague(string currentLeague) { this.currentLeague = currentLeague; }
+
     }
 }

@@ -8,6 +8,6 @@ namespace c_sharp_apps_Akiva_Cohen.sport_app
 {
     public class Round
     {
-        Game[] games;
+        private Game[] games;
     }
 }
