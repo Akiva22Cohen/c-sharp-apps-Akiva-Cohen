@@ -12,7 +12,6 @@ namespace c_sharp_apps_Akiva_Cohen.sport_app
         {
             Season[] groups = new Season[8];
 
-            //your code come here
             Team bayern = new Team("Bayern", "Bayern");
             Team copenhagen = new Team("Copenhagen", "Copenhagen");
             Team galastray = new Team("Galastray", "Galastray");
@@ -29,7 +28,7 @@ namespace c_sharp_apps_Akiva_Cohen.sport_app
             Season groupB = new Season(2024, "soccer", "Champoins - Group B", teams2);
             groups[1] = groupB;
 
-            Team realMadrid = new Team(" Real Madrid", "madrid");
+            Team realMadrid = new Team("Real Madrid", "madrid");
             Team napoli = new Team("Napoli", "Napoli");
             Team braja = new Team("Braja", "Braja");
             Team unionBerlin = new Team("Union Berlin", "Berlin");
@@ -61,7 +60,7 @@ namespace c_sharp_apps_Akiva_Cohen.sport_app
             Season groupF = new Season(2024, "soccer", "Champoins - Group F", teams6);
             groups[5] = groupF;
 
-            Team manchesterCity = new Team("Manchester City ", "Manchester");
+            Team manchesterCity = new Team("Manchester City", "Manchester");
             Team rbLeipzig = new Team("RB Leipzig", "leipzig");
             Team youngBoys = new Team("Young Boys", "Bern");
             Team crvana = new Team("Crvena zvezda", "Belgrad");
@@ -80,23 +79,20 @@ namespace c_sharp_apps_Akiva_Cohen.sport_app
             return groups;
         }
 
-        public static void Test1()
+        public static void PrintAllGroup(Season[] groups)
         {
             Console.WriteLine();
-            Console.WriteLine("Test 1 - champions league mock");
-            Season[] groups = CreateChampionsLeagueMock();
-
             for (int i = 0; i < groups.Length; i++)
             {
-                Console.BackgroundColor = ConsoleColor.Yellow;
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("-----------------------------------");
-                Console.ForegroundColor = ConsoleColor.Black;
-                Console.WriteLine("Group " + ((char)('A' + i)));
-                groups[i].DisplayTable();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("===================================");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                groups[i].DisplayTable();                
                 Console.ResetColor();
-                //Console.WriteLine("-----------------------------------");
             }
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("===================================");
+            Console.ResetColor();
             Console.WriteLine();
         }
     }
