@@ -11,6 +11,7 @@ namespace c_sharp_apps_Akiva_Cohen.bank_app
         public static void MainEntry()
         {
             Console.WriteLine("BankApp");
+            TestAccount.Test1();
         }
     }
 }
