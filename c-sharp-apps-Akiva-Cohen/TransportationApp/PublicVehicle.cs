@@ -10,7 +10,7 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp
     {
         private int line = 0;
         private int id = 0;
-        private int maxSpeed = 0;
+        protected int maxSpeed = 0;
         private int currentPassengers = 0;
         private int seats = 0;
         private bool hasRoom = true;
@@ -18,7 +18,7 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp
 
         public int Line { get => line; set => line = value; }
         public int Id { get => id; set => id = value; }
-        protected virtual int MaxSpeed { get => maxSpeed; set { maxSpeed = (value > 40) ? 40 : value; } }
+        public virtual int MaxSpeed { get => maxSpeed; set { maxSpeed = (value > 40) ? maxSpeed : value; } }
         public int CurrentPassengers { get => currentPassengers; set => currentPassengers = value; }
         public int Seats { get => seats; set => seats = value; }
         public bool HasRoom { get => hasRoom; set => hasRoom = value; }
@@ -69,7 +69,11 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp
 
         public override string ToString()
         {
-            return $"class PublicVehicle\nLine {Line} contains {CurrentPassengers}/{Seats} passengers.\nVacancy: {HasRoom}\nMaximum speed: {maxSpeed}";
+            return $"class {this.GetType().Name}:\n" +
+                    $"Line {Line} contains {CurrentPassengers}/{Seats} passengers,\n" +
+                    $"{rejecetedPassengers} passengers were rejected.\n" +
+                    $"{(hasRoom ? "There is" : "No")} space available.\n" +
+                    $"The maximum speed is {maxSpeed}.";
         }
     }
 }

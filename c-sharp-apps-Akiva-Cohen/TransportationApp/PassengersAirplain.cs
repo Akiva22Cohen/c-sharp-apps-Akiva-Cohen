@@ -14,16 +14,15 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp
         private int columns;
 
         public PassengersAirplain() { }
-        public PassengersAirplain(int line, int id) : base(line, id) { }
 
-        public PassengersAirplain(int enginesNum, int wingLength, int rows, int columns)
+        public PassengersAirplain(int line, int id, int enginesNum, int wingLength, int rows, int columns) : base(line, id)
         {
             this.EnginesNum = enginesNum;
             this.WingLength = wingLength;
             this.Rows = rows;
             this.Columns = columns;
 
-            base.Seats = this.Rows * this.Columns;
+            Seats = this.Rows * this.Columns;
         }
 
         public int EnginesNum { get => enginesNum; set => enginesNum = value; }
@@ -31,21 +30,21 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp
         public int Rows { get => rows; set => rows = value; }
         public int Columns { get => columns; set => columns = value; }
 
-        protected override int MaxSpeed { get => base.MaxSpeed; set { base.MaxSpeed = (value > 1000) ? 1000 : value; } }
+        public override int MaxSpeed { get => maxSpeed; set { maxSpeed = (value > 1000) ? maxSpeed : value; } }
 
-        public override bool CalculateHasRoom() { return CurrentPassengers < (base.Seats - 7); }
+        public override bool CalculateHasRoom() { return CurrentPassengers < (Seats - 7); }
 
         public override void UploadPassengers(int uploadPassengers)
         {
             if (CalculateHasRoom())
             {
                 int total = CurrentPassengers + uploadPassengers;
-                if (total < (base.Seats - 7))
+                if (total < (Seats - 7))
                     CurrentPassengers = total;
                 else
                 {
-                    CurrentPassengers += (base.Seats - 7) - CurrentPassengers;
-                    RejecetedPassengers = total - (base.Seats - 7);
+                    CurrentPassengers += (Seats - 7) - CurrentPassengers;
+                    RejecetedPassengers = total - (Seats - 7);
                     HasRoom = false;
                 }
             }
@@ -57,7 +56,9 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp
 
         public override string ToString()
         {
-            return base.ToString() + $"\nclass PassengersAirplain:\nWing length: {wingLength}\nNumber of engines: {enginesNum}\nrows/columns: {rows}/{columns}";
+            return base.ToString() + $"\nWing length: {wingLength}\n" +
+                                        $"Number of engines: {enginesNum}\n" +
+                                        $"rows/columns: {rows}/{columns}";
         }
     }
 }

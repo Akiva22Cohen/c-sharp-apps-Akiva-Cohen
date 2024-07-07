@@ -13,15 +13,14 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp
 
         public Bus() { }
 
-        protected override int MaxSpeed { get => base.MaxSpeed; set { base.MaxSpeed = (value > 120) ? 120 : value; } }
-        public Bus(int doors, int line, int id, int maxSpeed, int seats) : base(line, id, maxSpeed, seats)
+        public Bus(int line, int id, int maxSpeed, int seats, int doors) : base(line, id, maxSpeed, seats)
         {
             this.doors = doors;
-            this.MaxSpeed = maxSpeed;
         }
 
         public int Doors => doors;
         public bool BellStop { get => bellStop; set => bellStop = value; }
+        public override int MaxSpeed { get => maxSpeed; set { maxSpeed = (value > 120) ? maxSpeed : value; } }
 
         public override bool CalculateHasRoom() { return CurrentPassengers < Math.Round(Seats * 1.1); }
 
@@ -47,7 +46,8 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp
 
         public override string ToString()
         {
-            return base.ToString() + $"\nclass Bus:\nNumber of doors: {Doors}\nStop bell pressed: {BellStop}";
+            return base.ToString() + $"\nThere are {Doors} doors.\n" +
+                                        $"Stop bell {(BellStop ? "" : "not")} pressed.";
         }
 
     }
