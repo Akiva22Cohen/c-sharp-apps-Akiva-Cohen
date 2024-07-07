@@ -6,6 +6,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        TransportationAppMain.MainEntry();
+        ProcessManager.RunMainProcess();
     }
 }
