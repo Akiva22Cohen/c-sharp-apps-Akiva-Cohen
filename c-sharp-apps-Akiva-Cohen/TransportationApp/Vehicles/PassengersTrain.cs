@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace c_sharp_apps_Akiva_Cohen.TransportationApp
+namespace c_sharp_apps_Akiva_Cohen.TransportationApp.Vehicles
 {
     public class PassengersTrain : PublicVehicle
     {
