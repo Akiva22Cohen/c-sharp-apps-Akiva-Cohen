@@ -1,4 +1,5 @@
-﻿using System;
+﻿using c_sharp_apps_Akiva_Cohen.TransportationApp.Abs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,7 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp
         private string lastName;
         CargoType cargoType;
 
-        public bool Approve(CargoType type)
+        public bool Approve(CargoVehicle cargoVehicle, Port port)
         {
             return true;
         }

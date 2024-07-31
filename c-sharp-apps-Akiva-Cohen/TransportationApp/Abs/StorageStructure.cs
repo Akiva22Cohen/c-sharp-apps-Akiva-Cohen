@@ -14,95 +14,40 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp.Abs
         private string street;
         private int num;
 
-        private List<IPortable> portables;
-        private readonly int maxNumPortables;
-
         public string Country { get => country; set => country = value; }
         public string City { get => city; set => city = value; }
         public string Street { get => street; set => street = value; }
-        public int Num { get => num; set => num = value; }
+        public int Num { get => num; set => num = value; }        
 
-        public List<IPortable> Portables { get => portables; }
-        public int MaxNumPortables { get => maxNumPortables; }
-
-        protected StorageStructure(string country, string city, string street, int num, int maxNumPortables)
+        protected StorageStructure(string country, string city, string street, int num)
         {
             this.Country = country;
             this.City = city;
             this.Street = street;
             this.Num = num;
-
-            this.maxNumPortables = maxNumPortables;
-            this.portables = new List<IPortable>(MaxNumPortables);
         }
 
-        public bool Load(IPortable item)
-        {
-            if (IsHaveRoom())
-            {
-                portables.Add(item);
-                return true;
-            }
-            return false;
-        }
+        public abstract bool Load(IPortable item);
 
-        public bool Load(List<IPortable> items)
-        {
-            for (int i = 0; i < items.Count; i++)
-                if (!Load(items[i]))
-                    return false;
+        public abstract bool Load(List<IPortable> items);
 
-            return true;
-        }
+        public abstract bool Unload();
 
-        public bool Unload()
-        {
-            while (portables[0] != null)
-                portables.Remove(portables[0]);
-            return portables.Count == 0;
-        }
+        public abstract bool Unload(IPortable item);
 
-        public bool Unload(IPortable item)
-        {
-            portables.Remove(item);
-            return portables.Contains(item);
-        }
+        public abstract bool Unload(List<IPortable> items);
 
-        public bool Unload(List<IPortable> items)
-        {
-            for (int i = 0; i < items.Count; i++)
-                if (!Unload(items[i]))
-                    return false;
+        public abstract bool IsHaveRoom(double volume);
 
-            return true;
-        }
-
-        public bool IsHaveRoom() { return portables.Count < portables.Capacity; }
-
-        public bool IsOverload()
-        {
-            return true;
-        }
+        public abstract bool IsOverload(double weight);
 
 
-        public double GetMaxVolume()
-        {
-            return 0;
-        }
+        public abstract double GetMaxVolume();
 
-        public double GetMaxWeight()
-        {
-            return 0;
-        }
+        public abstract double GetMaxWeight();
 
-        public double GetCurrentVolume()
-        {
-            return 0;
-        }
+        public abstract double GetCurrentVolume();
 
-        public double GetCurrentWeight()
-        {
-            return 0;
-        }
+        public abstract double GetCurrentWeight();
     }
 }

@@ -7,17 +7,13 @@ using System.Threading.Tasks;
 
 namespace c_sharp_apps_Akiva_Cohen.TransportationApp.Abs
 {
-    public class CargoVehicle: IContainable
+    public abstract class CargoVehicle: IContainable
     {
         private Driver driver;
-        private double maxWeightAmount;
-        private double maxVolumeAmount;
         private bool canDrive;
-        private bool isOverload;
         private Port currentPort;
         private Port nextPort;
         private int idOfCurrentRide;
-        List<IPortable> portables;
         private Dictionary<int, string> payment;
         private int travelDistance;
 
@@ -28,73 +24,27 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp.Abs
         }
 
 
-        public bool Load(IPortable item)
-        {
-            if (IsHaveRoom())
-            {
-                portables.Add(item);
-                return true;
-            }
-            return false;
-        }
+        public abstract bool Load(IPortable item);
 
-        public bool Load(List<IPortable> items)
-        {
-            for (int i = 0; i < items.Count; i++)
-                if (!Load(items[i]))
-                    return false;
+        public abstract bool Load(List<IPortable> items);
 
-            return true;
-        }
+        public abstract bool Unload();
 
-        public bool Unload()
-        {
-            while (portables[0] != null)
-                portables.Remove(portables[0]);
-            return portables.Count == 0;
-        }
+        public abstract bool Unload(IPortable item);
 
-        public bool Unload(IPortable item)
-        {
-            portables.Remove(item);
-            return portables.Contains(item);
-        }
+        public abstract bool Unload(List<IPortable> items);
 
-        public bool Unload(List<IPortable> items)
-        {
-            for (int i = 0; i < items.Count; i++)
-                if (!Unload(items[i]))
-                    return false;
+        public abstract bool IsHaveRoom(double volume);
 
-            return true;
-        }
-
-        public bool IsHaveRoom() { return portables.Count < portables.Capacity; }
-
-        public bool IsOverload()
-        {
-            return true;
-        }
+        public abstract bool IsOverload(double weight);
 
 
-        public double GetMaxVolume()
-        {
-            return 0;
-        }
+        public abstract double GetMaxVolume();
 
-        public double GetMaxWeight()
-        {
-            return 0;
-        }
+        public abstract double GetMaxWeight();
 
-        public double GetCurrentVolume()
-        {
-            return 0;
-        }
+        public abstract double GetCurrentVolume();
 
-        public double GetCurrentWeight()
-        {
-            return 0;
-        }
+        public abstract double GetCurrentWeight();
     }
 }

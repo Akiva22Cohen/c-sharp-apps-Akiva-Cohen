@@ -18,9 +18,9 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp.Inters
 
         bool Unload(List<IPortable> items);
 
-        bool IsHaveRoom();
+        bool IsHaveRoom(double volume);
 
-        bool IsOverload();
+        bool IsOverload(double weight);
 
 
         double GetMaxVolume();

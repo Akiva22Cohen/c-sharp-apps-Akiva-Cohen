@@ -6,13 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace c_sharp_apps_Akiva_Cohen.TransportationApp
+namespace c_sharp_apps_Akiva_Cohen.TransportationApp.Vehicles.CargoVehicles
 {
-    public class Port : StorageStructure
+    public class CargoTrain : CargoVehicle
     {
-        private CargoType cargoType;
-        public CargoType CargoType { get => cargoType; set => cargoType = value; }
-
         private List<IPortable> portables;
 
         private double maxVolume;
@@ -21,25 +18,12 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp
         private double currentWeight;
 
 
-        public Port(CargoType cargoType, double maxVolume, double maxWeight, string country, string city, string street, int num) : base(country, city, street, num)
-        {
-            this.CargoType = cargoType;
-
-
-            this.MaxVolume = maxVolume;
-            this.MaxWeight = maxWeight;
-
-            this.portables = new List<IPortable>();
-            this.CurrentVolume = 0;
-            this.CurrentWeight = 0;
-        }
-
         public List<IPortable> Portables { get => portables; }
         public double MaxVolume { get => maxVolume; set => maxVolume = value; }
         public double MaxWeight { get => maxWeight; set => maxWeight = value; }
         public double CurrentVolume { get => currentVolume; set => currentVolume = (value > maxVolume) ? maxVolume : (value < 0) ? 0 : value; }
         public double CurrentWeight { get => currentWeight; set => currentWeight = (value > maxWeight) ? maxWeight : (value < 0) ? 0 : value; }
-        
+
 
         public override bool Load(IPortable item)
         {
@@ -100,8 +84,5 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp
         public override double GetCurrentVolume() { return CurrentVolume; }
 
         public override double GetCurrentWeight() { return CurrentWeight; }
-
-        public double GetVolumeRemains() { return MaxVolume - CurrentVolume; }
-        public double GetWeightRemains() { return MaxWeight - CurrentWeight; }
     }
 }
