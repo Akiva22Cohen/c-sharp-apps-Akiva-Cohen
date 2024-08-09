@@ -10,15 +10,26 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp.Vehicles.CargoVehicles
 {
     public class CargoTrain : CargoVehicle
     {
-        private List<IPortable> portables;
-
         private double maxVolume;
         private double maxWeight;
         private double currentVolume;
         private double currentWeight;
+        CargoCrone[] cargoCrones;
 
+        public CargoTrain(double maxVolume, double maxWeight, int numCrone)
+        {
+            MaxVolume = maxVolume;
+            MaxWeight = maxWeight;
 
-        public List<IPortable> Portables { get => portables; }
+            currentVolume = 0.0;
+            currentWeight = 0.0;
+
+            cargoCrones = new CargoCrone[numCrone];
+            for (int i = 0; i < numCrone; i++)
+                cargoCrones[i] = new CargoCrone(this.maxVolume / numCrone, this.maxWeight / numCrone);
+        }
+
+        public CargoCrone CargoCrones { get => CargoCrones; }
         public double MaxVolume { get => maxVolume; set => maxVolume = value; }
         public double MaxWeight { get => maxWeight; set => maxWeight = value; }
         public double CurrentVolume { get => currentVolume; set => currentVolume = (value > maxVolume) ? maxVolume : (value < 0) ? 0 : value; }
@@ -27,12 +38,13 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp.Vehicles.CargoVehicles
 
         public override bool Load(IPortable item)
         {
-            if (IsHaveRoom(item.GetVolume()) && IsOverload(item.GetWeight()))
+            for (int i = 0; i < cargoCrones.Length; i++)
             {
-                portables.Add(item);
-                CurrentVolume += item.GetVolume();
-                CurrentWeight += item.GetWeight();
-                return true;
+                if (cargoCrones[i].IsHaveRoom(item.GetVolume()) && cargoCrones[i].IsOverload(item.GetWeight()))
+                {
+                    cargoCrones[i].Load(item);
+                    return cargoCrones[i].Portables.Contains(item);
+                }
             }
             return false;
         }
@@ -48,8 +60,8 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp.Vehicles.CargoVehicles
 
         public override bool Unload()
         {
-            for (int i = 0; i < portables.Count; i++)
-                if (!Unload(portables[i]))
+            for (int i = 0; i < cargoCrones.Length; i++)
+                if (!cargoCrones[i].Unload()) 
                     return false;
 
             return true;
@@ -57,10 +69,19 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp.Vehicles.CargoVehicles
 
         public override bool Unload(IPortable item)
         {
-            portables.Remove(item);
-            CurrentVolume -= item.GetVolume();
-            CurrentWeight -= item.GetWeight();
-            return !portables.Contains(item);
+            for (int i = 0; i < cargoCrones.Length; i++)
+            {
+                if (cargoCrones[i].Portables.Contains(item))
+                {
+                    if (cargoCrones[i].Unload(item))
+                    {
+                        CurrentVolume -= item.GetVolume();
+                        CurrentWeight -= item.GetWeight();
+                    }
+                    return cargoCrones[i].Portables.Contains(item);
+                }
+            }
+            return false;
         }
 
         public override bool Unload(List<IPortable> items)

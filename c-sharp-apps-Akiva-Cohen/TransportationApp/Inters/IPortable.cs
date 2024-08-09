@@ -11,7 +11,7 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp.Inters
     {
         double GetArea();
 
-        int[] GetSize();
+        double[] GetSize();
 
         double GetVolume();
 

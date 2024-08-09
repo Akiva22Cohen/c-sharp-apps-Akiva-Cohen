@@ -1,18 +1,14 @@
-﻿using c_sharp_apps_Akiva_Cohen.TransportationApp.Abs;
-using c_sharp_apps_Akiva_Cohen.TransportationApp.Inters;
+﻿using c_sharp_apps_Akiva_Cohen.TransportationApp.Inters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace c_sharp_apps_Akiva_Cohen.TransportationApp
+namespace c_sharp_apps_Akiva_Cohen.TransportationApp.Vehicles.CargoVehicles
 {
-    public class Port : StorageStructure
+    public class CargoCrone : IContainable
     {
-        private CargoType cargoType;
-        public CargoType CargoType { get => cargoType; set => cargoType = value; }
-
         private List<IPortable> portables;
 
         private double maxVolume;
@@ -20,18 +16,15 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp
         private double currentVolume;
         private double currentWeight;
 
-
-        public Port(CargoType cargoType, double maxVolume, double maxWeight, string country, string city, string street, int num) : base(country, city, street, num)
+        public CargoCrone(double maxVolume, double maxWeight)
         {
-            this.CargoType = cargoType;
+            MaxVolume = maxVolume;
+            MaxWeight = maxWeight;
 
+            currentVolume = 0.0;
+            currentWeight = 0.0;
 
-            this.MaxVolume = maxVolume;
-            this.MaxWeight = maxWeight;
-
-            this.portables = new List<IPortable>();
-            this.CurrentVolume = 0;
-            this.CurrentWeight = 0;
+            portables = new List<IPortable>();
         }
 
         public List<IPortable> Portables { get => portables; }
@@ -41,7 +34,7 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp
         public double CurrentWeight { get => currentWeight; set => currentWeight = (value > maxWeight) ? maxWeight : (value < 0) ? 0 : value; }
 
 
-        public override bool Load(IPortable item)
+        public bool Load(IPortable item)
         {
             if (IsHaveRoom(item.GetVolume()) && IsOverload(item.GetWeight()))
             {
@@ -52,7 +45,7 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp
             return portables.Contains(item);
         }
 
-        public override bool Load(List<IPortable> items)
+        public bool Load(List<IPortable> items)
         {
             for (int i = 0; i < items.Count; i++)
                 if (!Load(items[i]))
@@ -61,7 +54,7 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp
             return true;
         }
 
-        public override bool Unload()
+        public bool Unload()
         {
             for (int i = 0; i < portables.Count; i++)
                 if (!Unload(portables[i]))
@@ -70,7 +63,7 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp
             return true;
         }
 
-        public override bool Unload(IPortable item)
+        public bool Unload(IPortable item)
         {
             portables.Remove(item);
             CurrentVolume -= item.GetVolume();
@@ -78,7 +71,7 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp
             return !portables.Contains(item);
         }
 
-        public override bool Unload(List<IPortable> items)
+        public bool Unload(List<IPortable> items)
         {
             for (int i = 0; i < items.Count; i++)
                 if (!Unload(items[i]))
@@ -87,20 +80,17 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp
             return true;
         }
 
-        public override bool IsHaveRoom(double volume) { return (CurrentVolume + volume) < MaxVolume; }
+        public bool IsHaveRoom(double volume) { return (CurrentVolume + volume) < MaxVolume; }
 
-        public override bool IsOverload(double weight) { return (CurrentWeight + weight) < MaxWeight; }
+        public bool IsOverload(double weight) { return (CurrentWeight + weight) < MaxWeight; }
 
 
-        public override double GetMaxVolume() { return MaxVolume; }
+        public double GetMaxVolume() { return MaxVolume; }
 
-        public override double GetMaxWeight() { return MaxWeight; }
+        public double GetMaxWeight() { return MaxWeight; }
 
-        public override double GetCurrentVolume() { return CurrentVolume; }
+        public double GetCurrentVolume() { return CurrentVolume; }
 
-        public override double GetCurrentWeight() { return CurrentWeight; }
-
-        public double GetVolumeRemains() { return MaxVolume - CurrentVolume; }
-        public double GetWeightRemains() { return MaxWeight - CurrentWeight; }
+        public double GetCurrentWeight() { return CurrentWeight; }
     }
 }

@@ -18,7 +18,7 @@ namespace c_sharp_apps_Akiva_Cohen.TransportationApp.Abs
         private int travelDistance;
 
 
-        public string GetPricingList()
+        public virtual string GetPricingList()
         {
             return "";
         }
